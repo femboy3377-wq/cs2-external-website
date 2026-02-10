@@ -3,33 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 External - Профессиональные читы для Counter-Strike 2</title>
-    <meta name="description" content="Лучшие External читы для CS2. Aimbot, ESP, Wallhack, Triggerbot. Безопасно, незаметно, профессионально.">
-    <meta name="keywords" content="CS2 читы, Counter-Strike 2 external, aimbot, esp, wallhack, triggerbot">
+    <title>CS2 EXTERNAL PRO - Premium Cheat</title>
+    <meta name="description" content="CS2 EXTERNAL PRO - The most advanced Counter-Strike 2 cheat with Aimbot, ESP, Bunnyhop and more.">
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Анимированный фон с частицами -->
-    <div class="particles-container" id="particles"></div>
-    
-    <!-- Навигация -->
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="stars"></div>
+        <div class="glow-orb glow-1"></div>
+        <div class="glow-orb glow-2"></div>
+        <div class="glow-orb glow-3"></div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">CS2<span class="logo-accent">EXTERNAL</span></span>
+            <div class="logo">
+                <span class="logo-text">CS2</span>
+                <span class="logo-pro">PRO</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Главная</a></li>
-                <li><a href="#features" class="nav-link">Функции</a></li>
-                <li><a href="#pricing" class="nav-link">Цены</a></li>
-                <li><a href="#reviews" class="nav-link">Отзывы</a></li>
+                <li><a href="#home" class="nav-link">HOME</a></li>
+                <li><a href="#features" class="nav-link">FEATURES</a></li>
+                <li><a href="#pricing" class="nav-link">PRICING</a></li>
                 <li><a href="#faq" class="nav-link">FAQ</a></li>
-                <li><a href="#contact" class="nav-link">Контакты</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
             </ul>
+            <button class="btn-login">LOGIN</button>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -38,693 +41,213 @@
         </div>
     </nav>
 
-    <!-- Hero секция -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="title-line">РАЗРАБОТКА</span>
-                    <span class="title-line accent">EXTERNAL ЧИТА</span>
-                    <span class="title-line">ДЛЯ CS2</span>
-                </h1>
-                <p class="hero-subtitle">Мы разрабатываем профессиональный External чит для Counter-Strike 2. Зарегистрируйтесь, чтобы получить уведомление о релизе.</p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number" id="registeredUsers">0</span>
-                        <span class="stat-label">Подписчиков</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-target="85">0</span>
-                        <span class="stat-label">% Готовности</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-target="24">0</span>
-                        <span class="stat-label">Часа поддержка</span>
-                    </div>
+            <h1 class="hero-title">
+                <span class="title-word">CS2</span>
+                <span class="title-word">EXTERNAL</span>
+                <span class="title-word">PRO</span>
+            </h1>
+            <p class="hero-subtitle">The Most Advanced Counter-Strike 2 Cheat</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" id="userCount">0</span>
+                    <span class="stat-label">Active Users</span>
                 </div>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary pulse" onclick="openRegistrationModal()">Подписаться на релиз</button>
-                    <button class="btn btn-secondary" onclick="scrollToSection('features')">Узнать больше</button>
+                <div class="stat">
+                    <span class="stat-number">99.8</span>
+                    <span class="stat-label">% Undetected</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="hero-image">
-                    <div class="cs2-logo">CS2</div>
-                    <div class="floating-elements">
-                        <div class="floating-element" style="--delay: 0s">AIM</div>
-                        <div class="floating-element" style="--delay: 1s">ESP</div>
-                        <div class="floating-element" style="--delay: 2s">WH</div>
-                        <div class="floating-element" style="--delay: 3s">TRG</div>
-                    </div>
-                </div>
+            <div class="hero-buttons">
+                <button class="btn btn-primary pulse">BUY NOW</button>
+                <button class="btn btn-secondary">LEARN MORE</button>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
+        <div class="hero-visual">
+            <div class="floating-cube"></div>
         </div>
     </section>
 
-    <!-- Статус серверов -->
-    <section class="server-status">
-        <div class="container">
-            <div class="status-grid">
-                <div class="status-item">
-                    <div class="status-indicator online"></div>
-                    <span>Основной сервер</span>
-                    <span class="status-text">Онлайн</span>
-                </div>
-                <div class="status-item">
-                    <div class="status-indicator online"></div>
-                    <span>API сервер</span>
-                    <span class="status-text">Онлайн</span>
-                </div>
-                <div class="status-item">
-                    <div class="status-indicator online"></div>
-                    <span>Обновления</span>
-                    <span class="status-text">Активны</span>
-                </div>
-                <div class="status-item">
-                    <div class="status-indicator warning"></div>
-                    <span>Техработы</span>
-                    <span class="status-text">Плановые</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Что будет включено -->
-    <section class="final-features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Что будет включено в финальную версию</h2>
-                <p class="section-subtitle">Основные функции, которые получат все пользователи</p>
-            </div>
-            <div class="final-features-grid">
-                <div class="final-feature-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="feature-glow"></div>
-                    <div class="feature-icon-large">
-                        <div class="icon-esp-large">👁️</div>
-                    </div>
-                    <h3>ESP / Wallhack</h3>
-                    <p>Видьте противников сквозь стены</p>
-                    <div class="feature-highlights">
-                        <span class="highlight">Player ESP</span>
-                        <span class="highlight">Health Bars</span>
-                        <span class="highlight">Distance Info</span>
-                    </div>
-                    <div class="feature-status-badge guaranteed">Гарантировано</div>
-                </div>
-                
-                <div class="final-feature-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="feature-glow"></div>
-                    <div class="feature-icon-large">
-                        <div class="icon-bhop-large">🏃</div>
-                    </div>
-                    <h3>Bunny Hop</h3>
-                    <p>Автоматические прыжки для скорости</p>
-                    <div class="feature-highlights">
-                        <span class="highlight">Perfect Timing</span>
-                        <span class="highlight">Legit Mode</span>
-                        <span class="highlight">Hotkey Control</span>
-                    </div>
-                    <div class="feature-status-badge guaranteed">Гарантировано</div>
-                </div>
-                
-                <div class="final-feature-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="feature-glow"></div>
-                    <div class="feature-icon-large">
-                        <div class="icon-aimbot-large">🎯</div>
-                    </div>
-                    <h3>Aimbot</h3>
-                    <p>Точное наведение на противников</p>
-                    <div class="feature-highlights">
-                        <span class="highlight">Smooth Aim</span>
-                        <span class="highlight">FOV Settings</span>
-                        <span class="highlight">Bone Selection</span>
-                    </div>
-                    <div class="feature-status-badge guaranteed">Гарантировано</div>
-                </div>
-                
-                <div class="final-feature-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="feature-glow"></div>
-                    <div class="feature-icon-large">
-                        <div class="icon-movement-large">⚡</div>
-                    </div>
-                    <h3>Movement</h3>
-                    <p>Улучшенное управление движением</p>
-                    <div class="feature-highlights">
-                        <span class="highlight">Strafe Helper</span>
-                        <span class="highlight">Auto Strafe</span>
-                        <span class="highlight">Edge Jump</span>
-                    </div>
-                    <div class="feature-status-badge guaranteed">Гарантировано</div>
-                </div>
-            </div>
-            
-            <div class="final-features-note">
-                <div class="note-icon">🔥</div>
-                <div class="note-content">
-                    <h4>Все функции будут доступны с первого дня релиза</h4>
-                    <p>Подписчики получат уведомление за 24 часа до выхода и специальную скидку 30%</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Функции продукта -->
+    <!-- Features Section -->
     <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Планируемые возможности</h2>
-                <p class="section-subtitle">Что будет включено в финальную версию чита</p>
+        <div class="section-header">
+            <h2>PREMIUM FEATURES</h2>
+            <p>Everything you need to dominate</p>
+        </div>
+        <div class="features-grid">
+            <!-- Bunnyhop Card -->
+            <div class="feature-card">
+                <div class="card-glow"></div>
+                <div class="card-icon">🏃</div>
+                <h3>BUNNYHOP</h3>
+                <p>Automatic jump with perfect timing</p>
+                <div class="feature-details">
+                    <span class="detail">Perfect Timing</span>
+                    <span class="detail">Legit Mode</span>
+                    <span class="detail">Hotkey Control</span>
+                </div>
+                <div class="status-badge soon">BETA - SOON</div>
             </div>
-            <div class="features-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon">
-                        <div class="icon-aimbot"></div>
-                    </div>
-                    <div class="feature-status developing">В разработке</div>
-                    <h3>Aimbot</h3>
-                    <p>Точное наведение на противников с настраиваемой плавностью</p>
-                    <ul class="feature-list">
-                        <li>Настраиваемая плавность</li>
-                        <li>FOV ограничения</li>
-                        <li>Приоритет целей</li>
-                        <li>Bone selection</li>
-                    </ul>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%"></div>
-                        <span class="progress-text">75%</span>
-                    </div>
+
+            <!-- ESP Card -->
+            <div class="feature-card">
+                <div class="card-glow"></div>
+                <div class="card-icon">👁️</div>
+                <h3>ESP / WALLHACK</h3>
+                <p>See enemies through walls in real-time</p>
+                <div class="feature-details">
+                    <span class="detail">Player ESP</span>
+                    <span class="detail">Health Bars</span>
+                    <span class="detail">Distance Info</span>
                 </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">
-                        <div class="icon-esp"></div>
-                    </div>
-                    <div class="feature-status developing">В разработке</div>
-                    <h3>ESP / Wallhack</h3>
-                    <p>Видьте противников сквозь стены с полной информацией</p>
-                    <ul class="feature-list">
-                        <li>Player ESP</li>
-                        <li>Weapon ESP</li>
-                        <li>Health bars</li>
-                        <li>Distance info</li>
-                    </ul>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 90%"></div>
-                        <span class="progress-text">90%</span>
-                    </div>
+                <div class="status-badge soon">BETA - SOON</div>
+            </div>
+
+            <!-- Aimbot Card -->
+            <div class="feature-card">
+                <div class="card-glow"></div>
+                <div class="card-icon">🎯</div>
+                <h3>AIMBOT</h3>
+                <p>Precise automatic aiming with settings</p>
+                <div class="feature-details">
+                    <span class="detail">Smooth Aim</span>
+                    <span class="detail">FOV Settings</span>
+                    <span class="detail">Bone Selection</span>
                 </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon">
-                        <div class="icon-trigger"></div>
-                    </div>
-                    <div class="feature-status planned">Запланировано</div>
-                    <h3>Triggerbot</h3>
-                    <p>Автоматическая стрельба при наведении на противника</p>
-                    <ul class="feature-list">
-                        <li>Настраиваемая задержка</li>
-                        <li>Фильтр по командам</li>
-                        <li>Hotkey активация</li>
-                        <li>Burst mode</li>
-                    </ul>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 45%"></div>
-                        <span class="progress-text">45%</span>
-                    </div>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">
-                        <div class="icon-bhop"></div>
-                    </div>
-                    <div class="feature-status developing">В разработке</div>
-                    <h3>Movement</h3>
-                    <p>Улучшенное управление движением и прыжками</p>
-                    <ul class="feature-list">
-                        <li>Bunny Hop</li>
-                        <li>Strafe helper</li>
-                        <li>Auto strafe</li>
-                        <li>Edge jump</li>
-                    </ul>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 60%"></div>
-                        <span class="progress-text">60%</span>
-                    </div>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="feature-icon">
-                        <div class="icon-radar"></div>
-                    </div>
-                    <div class="feature-status planned">Запланировано</div>
-                    <h3>Radar Hack</h3>
-                    <p>Показывает всех игроков на радаре в реальном времени</p>
-                    <ul class="feature-list">
-                        <li>2D Radar</li>
-                        <li>Цветовая кодировка</li>
-                        <li>Масштабирование</li>
-                        <li>Прозрачность</li>
-                    </ul>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 30%"></div>
-                        <span class="progress-text">30%</span>
-                    </div>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="feature-icon">
-                        <div class="icon-misc"></div>
-                    </div>
-                    <div class="feature-status planned">Запланировано</div>
-                    <h3>Дополнительно</h3>
-                    <p>Множество полезных функций для комфортной игры</p>
-                    <ul class="feature-list">
-                        <li>No Flash</li>
-                        <li>No Smoke</li>
-                        <li>Custom Crosshair</li>
-                        <li>Spectator list</li>
-                    </ul>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 20%"></div>
-                        <span class="progress-text">20%</span>
-                    </div>
-                </div>
+                <div class="status-badge soon">BETA - SOON</div>
             </div>
         </div>
     </section>
 
-    <!-- Статус разработки -->
-    <section id="pricing" class="development-status">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Статус разработки</h2>
-                <p class="section-subtitle">Следите за прогрессом создания чита</p>
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="section-header">
+            <h2>PRICING PLANS</h2>
+            <p>Choose your plan</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>STARTER</h3>
+                <div class="price">$9.99<span>/month</span></div>
+                <ul class="features-list">
+                    <li>✓ Bunnyhop</li>
+                    <li>✓ Basic ESP</li>
+                    <li>✗ Aimbot</li>
+                    <li>✓ Email Support</li>
+                </ul>
+                <button class="btn btn-outline">SELECT</button>
             </div>
-            <div class="development-timeline">
-                <div class="timeline-item completed" data-aos="fade-right" data-aos-delay="100">
-                    <div class="timeline-icon">✅</div>
-                    <div class="timeline-content">
-                        <h3>Исследование и планирование</h3>
-                        <p>Анализ игры, выбор технологий, создание архитектуры</p>
-                        <div class="timeline-date">Завершено</div>
-                    </div>
-                </div>
-                <div class="timeline-item active" data-aos="fade-left" data-aos-delay="200">
-                    <div class="timeline-icon">🔄</div>
-                    <div class="timeline-content">
-                        <h3>Разработка основных функций</h3>
-                        <p>ESP, Aimbot, Memory reading, Bypass системы</p>
-                        <div class="timeline-date">В процессе</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
-                            <span class="progress-text">75%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item upcoming" data-aos="fade-right" data-aos-delay="300">
-                    <div class="timeline-icon">⏳</div>
-                    <div class="timeline-content">
-                        <h3>Тестирование и оптимизация</h3>
-                        <p>Закрытое тестирование, исправление багов, оптимизация</p>
-                        <div class="timeline-date">Скоро</div>
-                    </div>
-                </div>
-                <div class="timeline-item upcoming" data-aos="fade-left" data-aos-delay="400">
-                    <div class="timeline-icon">🚀</div>
-                    <div class="timeline-content">
-                        <h3>Релиз</h3>
-                        <p>Публичный релиз, система продаж, поддержка пользователей</p>
-                        <div class="timeline-date">Планируется</div>
-                    </div>
-                </div>
+            <div class="pricing-card featured">
+                <div class="featured-badge">POPULAR</div>
+                <h3>PROFESSIONAL</h3>
+                <div class="price">$19.99<span>/month</span></div>
+                <ul class="features-list">
+                    <li>✓ Bunnyhop</li>
+                    <li>✓ Full ESP</li>
+                    <li>✓ Aimbot</li>
+                    <li>✓ Priority Support</li>
+                </ul>
+                <button class="btn btn-primary">SELECT</button>
             </div>
-            <div class="notification-signup">
-                <div class="signup-card">
-                    <h3>Получите уведомление о релизе</h3>
-                    <p>Будьте первыми, кто узнает о выходе чита</p>
-                    <button class="btn btn-primary pulse" onclick="openRegistrationModal()">
-                        Подписаться на уведомления
-                    </button>
-                    <div class="subscribers-count">
-                        <span id="subscribersCount">0</span> человек уже подписались
-                    </div>
-                </div>
+            <div class="pricing-card">
+                <h3>LIFETIME</h3>
+                <div class="price">$99.99<span>one-time</span></div>
+                <ul class="features-list">
+                    <li>✓ All Features</li>
+                    <li>✓ Lifetime Updates</li>
+                    <li>✓ VIP Support</li>
+                    <li>✓ Beta Access</li>
+                </ul>
+                <button class="btn btn-outline">SELECT</button>
             </div>
         </div>
     </section>
 
-    <!-- Отзывы -->
-    <section id="reviews" class="reviews">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Отзывы пользователей</h2>
-                <p class="section-subtitle">Что говорят наши клиенты</p>
-            </div>
-            <div class="reviews-grid">
-                <div class="review-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="review-header">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">A</div>
-                            <div class="reviewer-details">
-                                <h4>Alexey_Pro</h4>
-                                <div class="reviewer-rank">Global Elite</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">
-                            <span>★★★★★</span>
-                        </div>
-                    </div>
-                    <p class="review-text">"Использую уже 6 месяцев, ни одного бана! Aimbot работает плавно, ESP не палит. Отличная поддержка, быстро отвечают на вопросы."</p>
-                    <div class="review-date">2 дня назад</div>
-                </div>
-                <div class="review-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="review-header">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">D</div>
-                            <div class="reviewer-details">
-                                <h4>DarkSniper</h4>
-                                <div class="reviewer-rank">Supreme</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">
-                            <span>★★★★★</span>
-                        </div>
-                    </div>
-                    <p class="review-text">"Лучший чит для CS2! Особенно нравится Triggerbot - работает идеально. Конфиги от про-игроков просто огонь. Рекомендую всем!"</p>
-                    <div class="review-date">5 дней назад</div>
-                </div>
-                <div class="review-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="review-header">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">M</div>
-                            <div class="reviewer-details">
-                                <h4>MasterGamer</h4>
-                                <div class="reviewer-rank">Faceit Level 10</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">
-                            <span>★★★★☆</span>
-                        </div>
-                    </div>
-                    <p class="review-text">"Хороший продукт, но хотелось бы больше настроек для ESP. В целом доволен, играю уже 3 месяца без проблем."</p>
-                    <div class="review-date">1 неделю назад</div>
-                </div>
-                <div class="review-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="review-header">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">V</div>
-                            <div class="reviewer-details">
-                                <h4>VortexKill</h4>
-                                <div class="reviewer-rank">LEM</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">
-                            <span>★★★★★</span>
-                        </div>
-                    </div>
-                    <p class="review-text">"Купил пожизненную подписку и не жалею! Постоянные обновления, новые функции. Поддержка работает круглосуточно."</p>
-                    <div class="review-date">2 недели назад</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
+    <!-- FAQ Section -->
     <section id="faq" class="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Часто задаваемые вопросы</h2>
-                <p class="section-subtitle">Ответы на популярные вопросы</p>
+        <div class="section-header">
+            <h2>FREQUENTLY ASKED</h2>
+            <p>Common questions answered</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Is it safe to use?</h4>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, our cheat uses advanced anti-detection technology. We have a 99.8% undetected rate with regular updates.</p>
+                </div>
             </div>
-            <div class="faq-container">
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="faq-question">
-                        <h3>Безопасно ли использовать чит?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, наш чит полностью безопасен. Мы используем передовые технологии обхода античитов и постоянно обновляем защиту. За 2 года работы процент банов составляет менее 0.3%.</p>
-                    </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>How do I install it?</h4>
+                    <span class="faq-toggle">+</span>
                 </div>
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="faq-question">
-                        <h3>Как происходит установка?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>После покупки вы получите ссылку на скачивание и подробную инструкцию. Установка занимает 2-3 минуты. Наша поддержка поможет с настройкой в любое время.</p>
-                    </div>
+                <div class="faq-answer">
+                    <p>Installation is simple. Download the launcher, run it, and follow the setup wizard. Takes less than 2 minutes.</p>
                 </div>
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="faq-question">
-                        <h3>Работает ли на всех версиях Windows?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Чит совместим с Windows 10 и Windows 11 (64-bit). Поддерживаются все популярные антивирусы. Минимальные системные требования: 4GB RAM, DirectX 11.</p>
-                    </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What about updates?</h4>
+                    <span class="faq-toggle">+</span>
                 </div>
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="faq-question">
-                        <h3>Можно ли получить возврат средств?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, мы предоставляем гарантию возврата средств в течение 24 часов с момента покупки, если продукт не подошел по техническим причинам.</p>
-                    </div>
+                <div class="faq-answer">
+                    <p>We update weekly to stay ahead of anti-cheat systems. All updates are free for active subscribers.</p>
                 </div>
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
-                    <div class="faq-question">
-                        <h3>Как часто выходят обновления?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Обновления выходят еженедельно или при необходимости (обновления CS2, новые античиты). Все обновления бесплатны для активных подписчиков.</p>
-                    </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Can I get a refund?</h4>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer a 24-hour money-back guarantee if you're not satisfied with the product.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Контакты -->
+    <!-- Contact Section -->
     <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Связаться с нами</h2>
-                <p class="section-subtitle">Поддержка 24/7 для наших клиентов</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item" data-aos="fade-right" data-aos-delay="100">
-                        <div class="contact-icon">
-                            <div class="icon-telegram"></div>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Telegram</h3>
-                            <p>@cs2external_support</p>
-                            <a href="https://t.me/cs2external_support" class="contact-link">Написать в Telegram</a>
-                        </div>
-                    </div>
-                    <div class="contact-item" data-aos="fade-right" data-aos-delay="200">
-                        <div class="contact-icon">
-                            <div class="icon-discord"></div>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Discord</h3>
-                            <p>CS2External#1337</p>
-                            <a href="https://discord.gg/cs2external" class="contact-link">Присоединиться к Discord</a>
-                        </div>
-                    </div>
-                    <div class="contact-item" data-aos="fade-right" data-aos-delay="300">
-                        <div class="contact-icon">
-                            <div class="icon-email"></div>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>support@cs2external.ru</p>
-                            <a href="mailto:support@cs2external.ru" class="contact-link">Отправить email</a>
-                        </div>
-                    </div>
+        <div class="section-header">
+            <h2>GET IN TOUCH</h2>
+            <p>We're here to help</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">💬</span>
+                    <h4>Discord</h4>
+                    <p>@cs2external</p>
                 </div>
-                <div class="contact-form" data-aos="fade-left" data-aos-delay="100">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Ваше имя" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <select id="subject" name="subject" required>
-                                <option value="">Выберите тему</option>
-                                <option value="support">Техническая поддержка</option>
-                                <option value="billing">Вопросы по оплате</option>
-                                <option value="feature">Предложения по функциям</option>
-                                <option value="other">Другое</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Ваше сообщение" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Отправить сообщение</button>
-                    </form>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <h4>Email</h4>
+                    <p>support@cs2external.pro</p>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🌐</span>
+                    <h4>Telegram</h4>
+                    <p>@cs2external_support</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Футер -->
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <span class="logo-text">CS2<span class="logo-accent">EXTERNAL</span></span>
-                    </div>
-                    <p class="footer-description">Профессиональные External читы для Counter-Strike 2. Безопасно, незаметно, эффективно.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">
-                            <div class="icon-telegram"></div>
-                        </a>
-                        <a href="#" class="social-link">
-                            <div class="icon-discord"></div>
-                        </a>
-                        <a href="#" class="social-link">
-                            <div class="icon-youtube"></div>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Продукт</h3>
-                    <ul class="footer-links">
-                        <li><a href="#features">Функции</a></li>
-                        <li><a href="#pricing">Цены</a></li>
-                        <li><a href="#">Скачать</a></li>
-                        <li><a href="#">Обновления</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Поддержка</h3>
-                    <ul class="footer-links">
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#">Инструкции</a></li>
-                        <li><a href="#contact">Контакты</a></li>
-                        <li><a href="#">Статус серверов</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Правовая информация</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Пользовательское соглашение</a></li>
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Возврат средств</a></li>
-                        <li><a href="#">DMCA</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CS2External. Все права защищены.</p>
-                <p class="footer-disclaimer">Данный продукт предназначен только для образовательных целей.</p>
-            </div>
-        </div>
+        <p>&copy; 2024 CS2 EXTERNAL PRO. All rights reserved.</p>
+        <p class="disclaimer">For educational purposes only.</p>
     </footer>
 
-    <!-- Кнопка "Наверх" -->
-    <button class="scroll-to-top" id="scrollToTop">
-        <span>↑</span>
-    </button>
-
-    <!-- Модальные окна -->
-    <!-- Регистрация -->
-    <div class="modal" id="registrationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Подписка на уведомления</h2>
-                <span class="modal-close" onclick="closeModal('registrationModal')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="registrationForm">
-                    <div class="form-step active" id="step1">
-                        <div class="step-info">
-                            <div class="step-icon">📧</div>
-                            <h3>Введите ваш email</h3>
-                            <p>Мы отправим код подтверждения на вашу почту</p>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="regEmail" name="email" placeholder="Ваш email адрес" required>
-                            <div class="input-icon">📧</div>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="sendVerificationCode()">
-                            <span class="btn-text">Отправить код</span>
-                            <span class="btn-loader" style="display: none;">
-                                <div class="spinner"></div>
-                            </span>
-                        </button>
-                        <div class="form-note">
-                            <p>Мы не передаем ваши данные третьим лицам</p>
-                        </div>
-                    </div>
-                    <div class="form-step" id="step2">
-                        <div class="step-info">
-                            <div class="step-icon">🔐</div>
-                            <h3>Подтвердите email</h3>
-                            <p>Код подтверждения отправлен на:</p>
-                            <div class="email-display" id="emailDisplay"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="verificationCode" name="code" placeholder="000000" required maxlength="6" class="code-input">
-                            <div class="input-icon">🔐</div>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="verifyCode()">
-                            <span class="btn-text">Подтвердить</span>
-                            <span class="btn-loader" style="display: none;">
-                                <div class="spinner"></div>
-                            </span>
-                        </button>
-                        <button type="button" class="btn btn-secondary" onclick="resendCode()">
-                            Отправить код повторно
-                        </button>
-                        <div class="resend-timer" id="resendTimer" style="display: none;">
-                            Повторная отправка через: <span id="timerCount">60</span>с
-                        </div>
-                    </div>
-                    <div class="form-step" id="step3">
-                        <div class="success-animation">
-                            <div class="success-checkmark">
-                                <div class="check-icon">
-                                    <span class="icon-line line-tip"></span>
-                                    <span class="icon-line line-long"></span>
-                                    <div class="icon-circle"></div>
-                                    <div class="icon-fix"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="success-message">
-                            <h3>Подписка оформлена!</h3>
-                            <p>Спасибо за интерес к нашему проекту</p>
-                            <div class="user-info">
-                                <p><strong>Email:</strong> <span id="finalEmail"></span></p>
-                                <p><strong>Статус:</strong> <span class="subscriber-status">Подписчик</span></p>
-                                <p><strong>Дата:</strong> <span id="subscriptionDate"></span></p>
-                            </div>
-                            <div class="next-steps">
-                                <h4>Что дальше?</h4>
-                                <ul>
-                                    <li>Мы пришлем уведомление о релизе</li>
-                                    <li>Вы получите ранний доступ к читу</li>
-                                    <li>Специальная цена для подписчиков</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="closeModal('registrationModal')">
-                            Отлично!
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Скрипты -->
-    <script src="user-system.js"></script>
-    <script src="script.js"></script>
+    <script src="premium.js"></script>
 </body>
 </html>
