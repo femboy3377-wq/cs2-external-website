@@ -50,11 +50,11 @@
                 <p class="hero-subtitle">Получите преимущество в Counter-Strike 2 с нашими незаметными и безопасными читами. Aimbot, ESP, Wallhack и многое другое.</p>
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <span class="stat-number" data-target="15847">0</span>
-                        <span class="stat-label">Активных пользователей</span>
+                        <span class="stat-number" id="registeredUsers">0</span>
+                        <span class="stat-label">Зарегистрированных</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" data-target="99.7">0</span>
+                        <span class="stat-number" data-target="99.9">0</span>
                         <span class="stat-label">% Безопасность</span>
                     </div>
                     <div class="stat-item">
@@ -63,8 +63,8 @@
                     </div>
                 </div>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary pulse">Купить сейчас</button>
-                    <button class="btn btn-secondary">Смотреть демо</button>
+                    <button class="btn btn-primary pulse" onclick="openRegistrationModal()">Регистрация BETA</button>
+                    <button class="btn btn-secondary" onclick="openLoginModal()">Войти</button>
                 </div>
             </div>
             <div class="hero-visual">
@@ -122,15 +122,15 @@
             <div class="features-grid">
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-icon">
-                        <div class="icon-aimbot"></div>
+                        <div class="icon-bhop"></div>
                     </div>
-                    <h3>Aimbot</h3>
-                    <p>Точное наведение на противников с настраиваемой плавностью и FOV</p>
+                    <h3>Bunny Hop</h3>
+                    <p>Автоматические прыжки для увеличения скорости передвижения</p>
                     <ul class="feature-list">
-                        <li>Настраиваемая плавность</li>
-                        <li>FOV ограничения</li>
-                        <li>Приоритет целей</li>
-                        <li>Bone selection</li>
+                        <li>Perfect timing</li>
+                        <li>Настраиваемая вероятность</li>
+                        <li>Legit режим</li>
+                        <li>Hotkey control</li>
                     </ul>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
@@ -148,54 +148,15 @@
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-icon">
-                        <div class="icon-trigger"></div>
+                        <div class="icon-movement"></div>
                     </div>
-                    <h3>Triggerbot</h3>
-                    <p>Автоматическая стрельба при наведении на противника</p>
+                    <h3>Movement</h3>
+                    <p>Улучшенное управление движением персонажа</p>
                     <ul class="feature-list">
-                        <li>Настраиваемая задержка</li>
-                        <li>Фильтр по командам</li>
-                        <li>Hotkey активация</li>
-                        <li>Burst mode</li>
-                    </ul>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">
-                        <div class="icon-radar"></div>
-                    </div>
-                    <h3>Radar Hack</h3>
-                    <p>Показывает всех игроков на радаре в реальном времени</p>
-                    <ul class="feature-list">
-                        <li>2D Radar</li>
-                        <li>Цветовая кодировка</li>
-                        <li>Масштабирование</li>
-                        <li>Прозрачность</li>
-                    </ul>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="feature-icon">
-                        <div class="icon-bhop"></div>
-                    </div>
-                    <h3>Bunny Hop</h3>
-                    <p>Автоматические прыжки для увеличения скорости</p>
-                    <ul class="feature-list">
-                        <li>Perfect timing</li>
-                        <li>Настраиваемая вероятность</li>
-                        <li>Legit режим</li>
-                        <li>Hotkey control</li>
-                    </ul>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="feature-icon">
-                        <div class="icon-misc"></div>
-                    </div>
-                    <h3>Дополнительно</h3>
-                    <p>Множество полезных функций для комфортной игры</p>
-                    <ul class="feature-list">
-                        <li>No Flash</li>
-                        <li>No Smoke</li>
-                        <li>Crosshair</li>
-                        <li>Spectator list</li>
+                        <li>Strafe helper</li>
+                        <li>Auto strafe</li>
+                        <li>Edge jump</li>
+                        <li>Long jump</li>
                     </ul>
                 </div>
             </div>
@@ -206,75 +167,46 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Тарифные планы</h2>
-                <p class="section-subtitle">Выберите подходящий план для ваших потребностей</p>
+                <h2 class="section-title">BETA Доступ</h2>
+                <p class="section-subtitle">Получите ранний доступ к нашему продукту</p>
             </div>
-            <div class="pricing-grid">
-                <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="pricing-header">
-                        <h3>Базовый</h3>
-                        <div class="price">
-                            <span class="currency">₽</span>
-                            <span class="amount">499</span>
-                            <span class="period">/месяц</span>
+            <div class="beta-access-card">
+                <div class="beta-badge">BETA</div>
+                <div class="beta-content">
+                    <h3>Закрытое бета-тестирование</h3>
+                    <div class="beta-features">
+                        <div class="beta-feature">
+                            <span class="feature-icon">🏃</span>
+                            <span>Bunny Hop</span>
+                        </div>
+                        <div class="beta-feature">
+                            <span class="feature-icon">👁️</span>
+                            <span>ESP System</span>
+                        </div>
+                        <div class="beta-feature">
+                            <span class="feature-icon">⚡</span>
+                            <span>Movement Helper</span>
                         </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li>✓ Aimbot</li>
-                        <li>✓ ESP</li>
-                        <li>✓ Triggerbot</li>
-                        <li>✓ Базовая поддержка</li>
-                        <li>✗ Radar Hack</li>
-                        <li>✗ Bunny Hop</li>
-                        <li>✗ Приоритетная поддержка</li>
-                    </ul>
-                    <button class="btn btn-outline">Выбрать план</button>
-                </div>
-                <div class="pricing-card featured" data-aos="fade-up" data-aos-delay="200">
-                    <div class="popular-badge">Популярный</div>
-                    <div class="pricing-header">
-                        <h3>Премиум</h3>
-                        <div class="price">
-                            <span class="currency">₽</span>
-                            <span class="amount">899</span>
-                            <span class="period">/месяц</span>
+                    <div class="beta-stats">
+                        <div class="beta-stat">
+                            <span class="stat-value" id="betaSlots">47</span>
+                            <span class="stat-label">Свободных мест</span>
+                        </div>
+                        <div class="beta-stat">
+                            <span class="stat-value">∞</span>
+                            <span class="stat-label">Дней доступа</span>
                         </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li>✓ Все функции Базового</li>
-                        <li>✓ Radar Hack</li>
-                        <li>✓ Bunny Hop</li>
-                        <li>✓ No Flash/Smoke</li>
-                        <li>✓ Приоритетная поддержка</li>
-                        <li>✓ Еженедельные обновления</li>
-                        <li>✓ Конфигурации от про-игроков</li>
-                    </ul>
-                    <button class="btn btn-primary pulse">Выбрать план</button>
+                    <button class="btn btn-primary pulse beta-register-btn" onclick="openRegistrationModal()">
+                        Получить BETA доступ
+                    </button>
+                    <p class="beta-note">
+                        🔥 Ограниченное количество мест<br>
+                        💎 Бесплатный доступ для бета-тестеров<br>
+                        🚀 Первыми получите новые функции
+                    </p>
                 </div>
-                <div class="pricing-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="pricing-header">
-                        <h3>Пожизненный</h3>
-                        <div class="price">
-                            <span class="currency">₽</span>
-                            <span class="amount">4999</span>
-                            <span class="period">/навсегда</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>✓ Все функции Премиум</li>
-                        <li>✓ Пожизненные обновления</li>
-                        <li>✓ VIP поддержка 24/7</li>
-                        <li>✓ Эксклюзивные функции</li>
-                        <li>✓ Персональные настройки</li>
-                        <li>✓ Доступ к бета-версиям</li>
-                        <li>✓ Скидки на другие продукты</li>
-                    </ul>
-                    <button class="btn btn-outline">Выбрать план</button>
-                </div>
-            </div>
-            <div class="pricing-note">
-                <p>💳 Принимаем: Карты РФ, QIWI, YooMoney, Криптовалюты</p>
-                <p>🔒 Гарантия возврата средств в течение 24 часов</p>
             </div>
         </div>
     </section>
@@ -540,7 +472,88 @@
         <span>↑</span>
     </button>
 
+    <!-- Модальные окна -->
+    <!-- Регистрация -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Регистрация BETA</h2>
+                <span class="modal-close" onclick="closeModal('registrationModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm">
+                    <div class="form-step active" id="step1">
+                        <div class="form-group">
+                            <input type="email" id="regEmail" name="email" placeholder="Ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="regUsername" name="username" placeholder="Никнейм" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="sendVerificationCode()">
+                            Отправить код подтверждения
+                        </button>
+                    </div>
+                    <div class="form-step" id="step2">
+                        <div class="verification-info">
+                            <p>Код подтверждения отправлен на вашу почту</p>
+                            <p class="email-display" id="emailDisplay"></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="verificationCode" name="code" placeholder="Введите код из письма" required maxlength="6">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="verifyCode()">
+                            Подтвердить код
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resendCode()">
+                            Отправить код повторно
+                        </button>
+                    </div>
+                    <div class="form-step" id="step3">
+                        <div class="success-message">
+                            <div class="success-icon">✅</div>
+                            <h3>Регистрация завершена!</h3>
+                            <p>Добро пожаловать в BETA программу CS2 External</p>
+                            <div class="user-info">
+                                <p><strong>Email:</strong> <span id="finalEmail"></span></p>
+                                <p><strong>Никнейм:</strong> <span id="finalUsername"></span></p>
+                                <p><strong>Статус:</strong> <span class="beta-status">BETA Tester</span></p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="closeModal('registrationModal')">
+                            Начать использование
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вход -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вход в аккаунт</h2>
+                <span class="modal-close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="email" id="loginEmail" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="loginPassword" name="password" placeholder="Пароль" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <div class="form-links">
+                        <a href="#" onclick="openRegistrationModal(); closeModal('loginModal');">Нет аккаунта? Регистрация</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Скрипты -->
+    <script src="user-system.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

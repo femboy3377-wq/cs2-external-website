@@ -1,5 +1,12 @@
 // Основной JavaScript файл для CS2 External сайта
 
+// Глобальные переменные
+let registeredUsers = 0;
+let betaSlots = 47;
+let verificationCodeSent = '';
+let currentUserEmail = '';
+let currentUsername = '';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация всех компонентов
     initParticles();
@@ -10,6 +17,231 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initScrollToTop();
     initSmoothScroll();
+    initUserSystem();
+    loadUserStats();
+});
+
+// Инициализация системы пользователей
+function initUserSystem() {
+    // Загружаем данные из localStorage
+    const savedUsers = localStorage.getItem('cs2external_users');
+    const savedStats = localStorage.getItem('cs2external_stats');
+    
+    if (savedUsers) {
+        const users = JSON.parse(savedUsers);
+        registeredUsers = users.length;
+    } else {
+        // Начальное значение для демонстрации
+        registeredUsers = Math.floor(Math.random() * 50) + 150;
+        saveUserStats();
+    }
+    
+    if (savedStats) {
+        const stats = JSON.parse(savedStats);
+        betaSlots = stats.betaSlots || 47;
+    }
+    
+    updateUserCounters();
+}
+
+// Загрузка статистики пользователей
+function loadUserStats() {
+    // Симуляция реального времени - обновляем счетчики каждые 30 секунд
+    setInterval(() => {
+        // Случайное увеличение пользователей (1-3 новых пользователя)
+        if (Math.random() > 0.7) {
+            const newUsers = Math.floor(Math.random() * 3) + 1;
+            registeredUsers += newUsers;
+            betaSlots = Math.max(0, betaSlots - newUsers);
+            updateUserCounters();
+            saveUserStats();
+            
+            // Показываем уведомление о новых пользователях
+            if (newUsers > 0) {
+                showNotification(`+${newUsers} новых пользователей присоединились!`, 'info');
+            }
+        }
+    }, 30000); // Каждые 30 секунд
+}
+
+// Обновление счетчиков на странице
+function updateUserCounters() {
+    const userCounter = document.getElementById('registeredUsers');
+    const slotsCounter = document.getElementById('betaSlots');
+    
+    if (userCounter) {
+        userCounter.classList.add('counting');
+        userCounter.textContent = registeredUsers;
+        setTimeout(() => userCounter.classList.remove('counting'), 500);
+    }
+    
+    if (slotsCounter) {
+        slotsCounter.textContent = betaSlots;
+        if (betaSlots < 10) {
+            slotsCounter.style.color = 'var(--accent-red)';
+        }
+    }
+}
+
+// Сохранение статистики
+function saveUserStats() {
+    const stats = {
+        registeredUsers: registeredUsers,
+        betaSlots: betaSlots,
+        lastUpdate: new Date().toISOString()
+    };
+    localStorage.setItem('cs2external_stats', JSON.stringify(stats));
+}
+
+// Модальные окна
+function openRegistrationModal() {
+    const modal = document.getElementById('registrationModal');
+    modal.classList.add('active');
+    resetRegistrationForm();
+}
+
+function openLoginModal() {
+    const modal = document.getElementById('loginModal');
+    modal.classList.add('active');
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove('active');
+}
+
+// Сброс формы регистрации
+function resetRegistrationForm() {
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step3').classList.remove('active');
+    document.getElementById('registrationForm').reset();
+}
+
+// Отправка кода подтверждения
+function sendVerificationCode() {
+    const email = document.getElementById('regEmail').value;
+    const username = document.getElementById('regUsername').value;
+    
+    if (!email || !username) {
+        showNotification('Заполните все поля!', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showNotification('Введите корректный email!', 'error');
+        return;
+    }
+    
+    // Проверяем, не зарегистрирован ли уже этот email
+    const existingUsers = JSON.parse(localStorage.getItem('cs2external_users') || '[]');
+    if (existingUsers.find(user => user.email === email)) {
+        showNotification('Этот email уже зарегистрирован!', 'error');
+        return;
+    }
+    
+    // Генерируем код подтверждения
+    verificationCodeSent = generateVerificationCode();
+    currentUserEmail = email;
+    currentUsername = username;
+    
+    // Симулируем отправку email
+    showNotification('Код подтверждения отправлен на вашу почту!', 'success');
+    
+    // Переходим к следующему шагу
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+    document.getElementById('emailDisplay').textContent = email;
+    
+    // Для демонстрации показываем код в консоли
+    console.log('Код подтверждения:', verificationCodeSent);
+    showNotification(`Код для демо: ${verificationCodeSent}`, 'info');
+}
+
+// Подтверждение кода
+function verifyCode() {
+    const enteredCode = document.getElementById('verificationCode').value;
+    
+    if (!enteredCode) {
+        showNotification('Введите код подтверждения!', 'error');
+        return;
+    }
+    
+    if (enteredCode !== verificationCodeSent) {
+        showNotification('Неверный код подтверждения!', 'error');
+        return;
+    }
+    
+    // Регистрируем пользователя
+    registerUser(currentUserEmail, currentUsername);
+    
+    // Переходим к финальному шагу
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step3').classList.add('active');
+    document.getElementById('finalEmail').textContent = currentUserEmail;
+    document.getElementById('finalUsername').textContent = currentUsername;
+    
+    showNotification('Регистрация успешно завершена!', 'success');
+}
+
+// Повторная отправка кода
+function resendCode() {
+    verificationCodeSent = generateVerificationCode();
+    showNotification('Новый код отправлен на вашу почту!', 'success');
+    console.log('Новый код подтверждения:', verificationCodeSent);
+    showNotification(`Новый код для демо: ${verificationCodeSent}`, 'info');
+}
+
+// Регистрация пользователя
+function registerUser(email, username) {
+    const users = JSON.parse(localStorage.getItem('cs2external_users') || '[]');
+    const newUser = {
+        id: Date.now(),
+        email: email,
+        username: username,
+        registrationDate: new Date().toISOString(),
+        status: 'beta_tester'
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('cs2external_users', JSON.stringify(users));
+    
+    // Обновляем счетчики
+    registeredUsers++;
+    betaSlots = Math.max(0, betaSlots - 1);
+    updateUserCounters();
+    saveUserStats();
+}
+
+// Генерация кода подтверждения
+function generateVerificationCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+// Проверка email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Закрытие модальных окон по клику вне их
+window.addEventListener('click', function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+});
+
+// Закрытие модальных окон по Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+            activeModal.classList.remove('active');
+        }
+    }
 });
 
 // Создание анимированных частиц на фоне
@@ -104,7 +336,7 @@ function initScrollAnimations() {
 
 // Анимированные счетчики статистики
 function initCounters() {
-    const counters = document.querySelectorAll('.stat-number');
+    const counters = document.querySelectorAll('.stat-number[data-target]');
     const speed = 200; // Скорость анимации
 
     const countUp = (counter) => {
@@ -135,6 +367,39 @@ function initCounters() {
     counters.forEach(counter => {
         counterObserver.observe(counter);
     });
+
+    // Специальная обработка для счетчика зарегистрированных пользователей
+    const userCounter = document.getElementById('registeredUsers');
+    if (userCounter) {
+        const userCounterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateUserCounter();
+                    userCounterObserver.unobserve(entry.target);
+                }
+            });
+        });
+        userCounterObserver.observe(userCounter);
+    }
+}
+
+// Анимация счетчика пользователей
+function animateUserCounter() {
+    const counter = document.getElementById('registeredUsers');
+    if (!counter) return;
+    
+    let current = 0;
+    const target = registeredUsers;
+    const increment = Math.ceil(target / 100);
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        counter.textContent = current;
+    }, 20);
 }
 
 // FAQ аккордеон

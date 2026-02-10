@@ -1152,3 +1152,327 @@ body {
         height: 45px;
     }
 }
+/* Иконка движения */
+.icon-movement::before { content: '🏃‍♂️'; font-size: 2rem; }
+
+/* BETA секция */
+.beta-access-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--dark-secondary);
+    border: 2px solid var(--primary-purple);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-glow);
+}
+
+.beta-access-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.beta-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    animation: pulse 2s infinite;
+    box-shadow: var(--shadow-glow);
+}
+
+.beta-content h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.beta-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.beta-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    min-width: 120px;
+}
+
+.beta-feature .feature-icon {
+    font-size: 2rem;
+}
+
+.beta-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.beta-stat {
+    text-align: center;
+}
+
+.beta-stat .stat-value {
+    display: block;
+    font-family: 'Orbitron', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-purple);
+    text-shadow: 0 0 10px var(--primary-purple);
+}
+
+.beta-stat .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.beta-register-btn {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    padding: 1.2rem 2.5rem;
+}
+
+.beta-note {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--dark-secondary);
+    border: 1px solid var(--primary-purple);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-glow);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.modal-header h2 {
+    font-family: 'Orbitron', monospace;
+    color: var(--primary-purple);
+    margin: 0;
+}
+
+.modal-close {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--accent-red);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.verification-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.email-display {
+    color: var(--primary-purple);
+    font-weight: 600;
+}
+
+.success-message {
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.success-message h3 {
+    color: var(--primary-purple);
+    margin-bottom: 1rem;
+}
+
+.user-info {
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.user-info p {
+    margin: 0.5rem 0;
+}
+
+.beta-status {
+    color: var(--primary-purple);
+    font-weight: 600;
+    text-shadow: 0 0 5px var(--primary-purple);
+}
+
+.form-links {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.form-links a {
+    color: var(--primary-purple);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.form-links a:hover {
+    text-shadow: 0 0 5px var(--primary-purple);
+}
+
+/* Адаптивность для модальных окон */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .beta-features {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .beta-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .beta-access-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* Анимация для счетчика пользователей */
+.stat-number.counting {
+    animation: countUp 0.5s ease;
+}
+
+@keyframes countUp {
+    from {
+        transform: scale(1.2);
+        color: var(--accent-red);
+    }
+    to {
+        transform: scale(1);
+        color: var(--primary-purple);
+    }
+}
+
+/* Улучшенные стили для форм */
+.form-group input:focus {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+.form-group input[type="text"]#verificationCode {
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 0.5rem;
+    font-weight: 600;
+}
+
+/* Эффект печатания для кода */
+.typing-effect {
+    animation: typing 0.5s steps(6, end);
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
