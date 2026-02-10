@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Запрещаем индексацию служебных файлов
+Disallow: /script.js
+Disallow: /styles.css
+Disallow: /*.txt
+Disallow: /*.md
+
+# Разрешаем основные страницы
+Allow: /index.html
+Allow: /
+
+# Указываем расположение карты сайта
+Sitemap: https://ваш-домен.com/sitemap.xml
+
+# Время задержки между запросами (в секундах)
+Crawl-delay: 1
