@@ -1074,3 +1074,204 @@ function saveUserPreferences() {
 
 // Сохранение предпочтений при уходе со страницы
 window.addEventListener('beforeunload', saveUserPreferences);
+// Инициализация анимаций для финальных функций
+function initFinalFeaturesAnimations() {
+    const finalFeatureCards = document.querySelectorAll('.final-feature-card');
+    
+    finalFeatureCards.forEach((card, index) => {
+        // Добавляем интерактивность при наведении
+        card.addEventListener('mouseenter', function() {
+            // Создаем эффект ripple
+            createRippleEffect(card);
+            
+            // Анимируем highlights
+            const highlights = card.querySelectorAll('.highlight');
+            highlights.forEach((highlight, i) => {
+                setTimeout(() => {
+                    highlight.style.transform = 'translateY(-3px) scale(1.05)';
+                    highlight.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.3)';
+                }, i * 100);
+            });
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // Возвращаем highlights в исходное состояние
+            const highlights = card.querySelectorAll('.highlight');
+            highlights.forEach(highlight => {
+                highlight.style.transform = 'translateY(0) scale(1)';
+                highlight.style.boxShadow = 'none';
+            });
+        });
+        
+        // Добавляем случайную анимацию иконок
+        const icon = card.querySelector('.feature-icon-large');
+        if (icon) {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    icon.style.animation = 'none';
+                    setTimeout(() => {
+                        icon.style.animation = `float-icon 3s ease-in-out infinite`;
+                        icon.style.animationDelay = `${index * 0.5}s`;
+                    }, 50);
+                }
+            }, 5000 + index * 1000);
+        }
+    });
+}
+
+// Создание ripple эффекта для карточек
+function createRippleEffect(element) {
+    const ripple = document.createElement('div');
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = '50%';
+    ripple.style.top = '50%';
+    ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(139, 92, 246, 0.1)';
+    ripple.style.pointerEvents = 'none';
+    ripple.style.zIndex = '1';
+    
+    element.appendChild(ripple);
+    
+    // Анимируем ripple
+    ripple.animate([
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+        { transform: 'translate(-50%, -50%) scale(1)', opacity: 0 }
+    ], {
+        duration: 800,
+        easing: 'ease-out'
+    });
+    
+    setTimeout(() => {
+        if (ripple.parentNode) {
+            ripple.parentNode.removeChild(ripple);
+        }
+    }, 800);
+}
+
+// Анимация появления секции финальных функций
+function initFinalFeaturesReveal() {
+    const finalFeaturesSection = document.querySelector('.final-features');
+    
+    if (finalFeaturesSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Запускаем каскадную анимацию карточек
+                    const cards = entry.target.querySelectorAll('.final-feature-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0) scale(1)';
+                        }, index * 200);
+                    });
+                    
+                    // Анимируем заметку
+                    const note = entry.target.querySelector('.final-features-note');
+                    if (note) {
+                        setTimeout(() => {
+                            note.style.opacity = '1';
+                            note.style.transform = 'translateY(0)';
+                        }, cards.length * 200 + 300);
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        observer.observe(finalFeaturesSection);
+        
+        // Изначально скрываем элементы
+        const cards = finalFeaturesSection.querySelectorAll('.final-feature-card');
+        const note = finalFeaturesSection.querySelector('.final-features-note');
+        
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px) scale(0.9)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        });
+        
+        if (note) {
+            note.style.opacity = '0';
+            note.style.transform = 'translateY(30px)';
+            note.style.transition = 'all 0.6s ease';
+        }
+    }
+}
+
+// Интерактивные эффекты для бейджей "Гарантировано"
+function initGuaranteedBadges() {
+    const badges = document.querySelectorAll('.feature-status-badge.guaranteed');
+    
+    badges.forEach(badge => {
+        // Добавляем случайные вспышки
+        setInterval(() => {
+            if (Math.random() > 0.8) {
+                badge.style.animation = 'none';
+                setTimeout(() => {
+                    badge.style.animation = 'pulse-guaranteed 3s infinite';
+                    // Добавляем временную вспышку
+                    badge.style.boxShadow = '0 6px 30px rgba(16, 185, 129, 0.8)';
+                    setTimeout(() => {
+                        badge.style.boxShadow = '0 4px 15px rgba(16, 185, 129, 0.3)';
+                    }, 300);
+                }, 50);
+            }
+        }, 3000);
+        
+        // Интерактивность при наведении
+        badge.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1)';
+            this.style.boxShadow = '0 8px 25px rgba(16, 185, 129, 0.6)';
+        });
+        
+        badge.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = '0 4px 15px rgba(16, 185, 129, 0.3)';
+        });
+    });
+}
+
+// Обновляем основную инициализацию
+document.addEventListener('DOMContentLoaded', function() {
+    // Существующие инициализации...
+    initParticles();
+    initNavigation();
+    initScrollAnimations();
+    initCounters();
+    initFAQ();
+    initContactForm();
+    initScrollToTop();
+    initSmoothScroll();
+    initSubscriberSystem();
+    loadSubscriberStats();
+    initProgressBars();
+    
+    // Новые инициализации для финальных функций
+    initFinalFeaturesAnimations();
+    initFinalFeaturesReveal();
+    initGuaranteedBadges();
+});
+
+// Дополнительные эффекты при загрузке страницы
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    initFloatingElements();
+    initPulseEffects();
+    initParallaxEffect();
+    
+    // Запускаем дополнительные анимации для финальных функций
+    setTimeout(() => {
+        const finalFeatureCards = document.querySelectorAll('.final-feature-card');
+        finalFeatureCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('loaded');
+            }, index * 100);
+        });
+    }, 1000);
+});
