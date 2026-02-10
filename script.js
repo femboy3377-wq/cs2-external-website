@@ -1,11 +1,11 @@
 // Основной JavaScript файл для CS2 External сайта
 
 // Глобальные переменные
-let registeredUsers = 0;
-let betaSlots = 47;
+let subscribers = 0;
 let verificationCodeSent = '';
 let currentUserEmail = '';
-let currentUsername = '';
+let resendTimer = null;
+let resendCountdown = 60;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация всех компонентов
@@ -17,80 +17,107 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initScrollToTop();
     initSmoothScroll();
-    initUserSystem();
-    loadUserStats();
+    initSubscriberSystem();
+    loadSubscriberStats();
+    initProgressBars();
 });
 
-// Инициализация системы пользователей
-function initUserSystem() {
+// Инициализация системы подписчиков
+function initSubscriberSystem() {
     // Загружаем данные из localStorage
-    const savedUsers = localStorage.getItem('cs2external_users');
-    const savedStats = localStorage.getItem('cs2external_stats');
+    const savedSubscribers = localStorage.getItem('cs2external_subscribers');
+    const savedStats = localStorage.getItem('cs2external_subscriber_stats');
     
-    if (savedUsers) {
-        const users = JSON.parse(savedUsers);
-        registeredUsers = users.length;
+    if (savedSubscribers) {
+        const subscribersList = JSON.parse(savedSubscribers);
+        subscribers = subscribersList.length;
     } else {
         // Начальное значение для демонстрации
-        registeredUsers = Math.floor(Math.random() * 50) + 150;
-        saveUserStats();
+        subscribers = Math.floor(Math.random() * 100) + 250;
+        saveSubscriberStats();
     }
     
-    if (savedStats) {
-        const stats = JSON.parse(savedStats);
-        betaSlots = stats.betaSlots || 47;
-    }
-    
-    updateUserCounters();
+    updateSubscriberCounters();
 }
 
-// Загрузка статистики пользователей
-function loadUserStats() {
-    // Симуляция реального времени - обновляем счетчики каждые 30 секунд
+// Загрузка статистики подписчиков
+function loadSubscriberStats() {
+    // Симуляция реального времени - обновляем счетчики каждые 45 секунд
     setInterval(() => {
-        // Случайное увеличение пользователей (1-3 новых пользователя)
-        if (Math.random() > 0.7) {
-            const newUsers = Math.floor(Math.random() * 3) + 1;
-            registeredUsers += newUsers;
-            betaSlots = Math.max(0, betaSlots - newUsers);
-            updateUserCounters();
-            saveUserStats();
+        // Случайное увеличение подписчиков (1-2 новых подписчика)
+        if (Math.random() > 0.8) {
+            const newSubscribers = Math.floor(Math.random() * 2) + 1;
+            subscribers += newSubscribers;
+            updateSubscriberCounters();
+            saveSubscriberStats();
             
-            // Показываем уведомление о новых пользователях
-            if (newUsers > 0) {
-                showNotification(`+${newUsers} новых пользователей присоединились!`, 'info');
+            // Показываем уведомление о новых подписчиках
+            if (newSubscribers > 0) {
+                showNotification(`+${newSubscribers} новых подписчиков!`, 'info');
             }
         }
-    }, 30000); // Каждые 30 секунд
+    }, 45000); // Каждые 45 секунд
 }
 
 // Обновление счетчиков на странице
-function updateUserCounters() {
+function updateSubscriberCounters() {
     const userCounter = document.getElementById('registeredUsers');
-    const slotsCounter = document.getElementById('betaSlots');
+    const subscribersCounter = document.getElementById('subscribersCount');
     
     if (userCounter) {
         userCounter.classList.add('counting');
-        userCounter.textContent = registeredUsers;
+        userCounter.textContent = subscribers;
         setTimeout(() => userCounter.classList.remove('counting'), 500);
     }
     
-    if (slotsCounter) {
-        slotsCounter.textContent = betaSlots;
-        if (betaSlots < 10) {
-            slotsCounter.style.color = 'var(--accent-red)';
-        }
+    if (subscribersCounter) {
+        subscribersCounter.textContent = subscribers;
     }
 }
 
 // Сохранение статистики
-function saveUserStats() {
+function saveSubscriberStats() {
     const stats = {
-        registeredUsers: registeredUsers,
-        betaSlots: betaSlots,
+        subscribers: subscribers,
         lastUpdate: new Date().toISOString()
     };
-    localStorage.setItem('cs2external_stats', JSON.stringify(stats));
+    localStorage.setItem('cs2external_subscriber_stats', JSON.stringify(stats));
+}
+
+// Инициализация прогресс баров
+function initProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-fill');
+    
+    const progressObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const progressBar = entry.target;
+                const width = progressBar.style.width;
+                progressBar.style.width = '0%';
+                
+                setTimeout(() => {
+                    progressBar.style.width = width;
+                }, 200);
+                
+                progressObserver.unobserve(progressBar);
+            }
+        });
+    });
+    
+    progressBars.forEach(bar => {
+        progressObserver.observe(bar);
+    });
+}
+
+// Плавная прокрутка к секции
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
 }
 
 // Модальные окна
@@ -100,14 +127,15 @@ function openRegistrationModal() {
     resetRegistrationForm();
 }
 
-function openLoginModal() {
-    const modal = document.getElementById('loginModal');
-    modal.classList.add('active');
-}
-
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.classList.remove('active');
+    
+    // Очищаем таймер при закрытии модального окна
+    if (resendTimer) {
+        clearInterval(resendTimer);
+        resendTimer = null;
+    }
 }
 
 // Сброс формы регистрации
@@ -116,34 +144,65 @@ function resetRegistrationForm() {
     document.getElementById('step2').classList.remove('active');
     document.getElementById('step3').classList.remove('active');
     document.getElementById('registrationForm').reset();
+    
+    // Сбрасываем состояние кнопок
+    resetButtonState('step1');
+    resetButtonState('step2');
+}
+
+// Сброс состояния кнопки
+function resetButtonState(stepId) {
+    const step = document.getElementById(stepId);
+    const btn = step.querySelector('.btn-primary');
+    const btnText = btn.querySelector('.btn-text');
+    const btnLoader = btn.querySelector('.btn-loader');
+    
+    btn.disabled = false;
+    btnText.style.display = 'inline';
+    btnLoader.style.display = 'none';
+}
+
+// Показать загрузку на кнопке
+function showButtonLoading(stepId) {
+    const step = document.getElementById(stepId);
+    const btn = step.querySelector('.btn-primary');
+    const btnText = btn.querySelector('.btn-text');
+    const btnLoader = btn.querySelector('.btn-loader');
+    
+    btn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline';
 }
 
 // Отправка кода подтверждения
-function sendVerificationCode() {
+async function sendVerificationCode() {
     const email = document.getElementById('regEmail').value;
-    const username = document.getElementById('regUsername').value;
     
-    if (!email || !username) {
-        showNotification('Заполните все поля!', 'error');
+    if (!email) {
+        showNotification('Введите email адрес!', 'error');
         return;
     }
     
     if (!isValidEmail(email)) {
-        showNotification('Введите корректный email!', 'error');
+        showNotification('Введите корректный email адрес!', 'error');
         return;
     }
     
-    // Проверяем, не зарегистрирован ли уже этот email
-    const existingUsers = JSON.parse(localStorage.getItem('cs2external_users') || '[]');
-    if (existingUsers.find(user => user.email === email)) {
-        showNotification('Этот email уже зарегистрирован!', 'error');
+    // Проверяем, не подписан ли уже этот email
+    const existingSubscribers = JSON.parse(localStorage.getItem('cs2external_subscribers') || '[]');
+    if (existingSubscribers.find(subscriber => subscriber.email === email)) {
+        showNotification('Этот email уже подписан на уведомления!', 'error');
         return;
     }
+    
+    showButtonLoading('step1');
+    
+    // Симулируем отправку email
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
     // Генерируем код подтверждения
     verificationCodeSent = generateVerificationCode();
     currentUserEmail = email;
-    currentUsername = username;
     
     // Симулируем отправку email
     showNotification('Код подтверждения отправлен на вашу почту!', 'success');
@@ -153,13 +212,18 @@ function sendVerificationCode() {
     document.getElementById('step2').classList.add('active');
     document.getElementById('emailDisplay').textContent = email;
     
-    // Для демонстрации показываем код в консоли
+    // Для демонстрации показываем код в консоли и уведомлении
     console.log('Код подтверждения:', verificationCodeSent);
-    showNotification(`Код для демо: ${verificationCodeSent}`, 'info');
+    setTimeout(() => {
+        showNotification(`Код для демо: ${verificationCodeSent}`, 'info');
+    }, 1000);
+    
+    resetButtonState('step1');
+    startResendTimer();
 }
 
 // Подтверждение кода
-function verifyCode() {
+async function verifyCode() {
     const enteredCode = document.getElementById('verificationCode').value;
     
     if (!enteredCode) {
@@ -167,50 +231,105 @@ function verifyCode() {
         return;
     }
     
-    if (enteredCode !== verificationCodeSent) {
-        showNotification('Неверный код подтверждения!', 'error');
+    if (enteredCode.length !== 6) {
+        showNotification('Код должен содержать 6 цифр!', 'error');
         return;
     }
     
-    // Регистрируем пользователя
-    registerUser(currentUserEmail, currentUsername);
+    if (enteredCode !== verificationCodeSent) {
+        showNotification('Неверный код подтверждения!', 'error');
+        // Добавляем эффект тряски для поля ввода
+        const codeInput = document.getElementById('verificationCode');
+        codeInput.style.animation = 'shake 0.5s';
+        setTimeout(() => codeInput.style.animation = '', 500);
+        return;
+    }
+    
+    showButtonLoading('step2');
+    
+    // Симулируем обработку
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Регистрируем подписчика
+    registerSubscriber(currentUserEmail);
     
     // Переходим к финальному шагу
     document.getElementById('step2').classList.remove('active');
     document.getElementById('step3').classList.add('active');
     document.getElementById('finalEmail').textContent = currentUserEmail;
-    document.getElementById('finalUsername').textContent = currentUsername;
+    document.getElementById('subscriptionDate').textContent = new Date().toLocaleDateString('ru-RU');
     
-    showNotification('Регистрация успешно завершена!', 'success');
+    // Очищаем таймер
+    if (resendTimer) {
+        clearInterval(resendTimer);
+        resendTimer = null;
+    }
+    
+    showNotification('Подписка успешно оформлена!', 'success');
+    resetButtonState('step2');
 }
 
 // Повторная отправка кода
-function resendCode() {
+async function resendCode() {
+    showButtonLoading('step2');
+    
+    // Симулируем отправку
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     verificationCodeSent = generateVerificationCode();
     showNotification('Новый код отправлен на вашу почту!', 'success');
     console.log('Новый код подтверждения:', verificationCodeSent);
-    showNotification(`Новый код для демо: ${verificationCodeSent}`, 'info');
+    
+    setTimeout(() => {
+        showNotification(`Новый код для демо: ${verificationCodeSent}`, 'info');
+    }, 1000);
+    
+    resetButtonState('step2');
+    startResendTimer();
 }
 
-// Регистрация пользователя
-function registerUser(email, username) {
-    const users = JSON.parse(localStorage.getItem('cs2external_users') || '[]');
-    const newUser = {
+// Таймер повторной отправки
+function startResendTimer() {
+    resendCountdown = 60;
+    const timerElement = document.getElementById('resendTimer');
+    const countElement = document.getElementById('timerCount');
+    const resendBtn = document.querySelector('#step2 .btn-secondary');
+    
+    timerElement.style.display = 'block';
+    resendBtn.disabled = true;
+    resendBtn.style.opacity = '0.5';
+    
+    resendTimer = setInterval(() => {
+        resendCountdown--;
+        countElement.textContent = resendCountdown;
+        
+        if (resendCountdown <= 0) {
+            clearInterval(resendTimer);
+            timerElement.style.display = 'none';
+            resendBtn.disabled = false;
+            resendBtn.style.opacity = '1';
+            resendTimer = null;
+        }
+    }, 1000);
+}
+
+// Регистрация подписчика
+function registerSubscriber(email) {
+    const subscribersList = JSON.parse(localStorage.getItem('cs2external_subscribers') || '[]');
+    const newSubscriber = {
         id: Date.now(),
         email: email,
-        username: username,
-        registrationDate: new Date().toISOString(),
-        status: 'beta_tester'
+        subscriptionDate: new Date().toISOString(),
+        status: 'active'
     };
     
-    users.push(newUser);
-    localStorage.setItem('cs2external_users', JSON.stringify(users));
+    subscribersList.push(newSubscriber);
+    localStorage.setItem('cs2external_subscribers', JSON.stringify(subscribersList));
     
     // Обновляем счетчики
-    registeredUsers++;
-    betaSlots = Math.max(0, betaSlots - 1);
-    updateUserCounters();
-    saveUserStats();
+    subscribers++;
+    updateSubscriberCounters();
+    saveSubscriberStats();
 }
 
 // Генерация кода подтверждения
@@ -224,25 +343,21 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-// Закрытие модальных окон по клику вне их
-window.addEventListener('click', function(event) {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-        if (event.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-});
+// Анимация тряски
+const shakeKeyframes = `
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}`;
 
-// Закрытие модальных окон по Escape
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        const activeModal = document.querySelector('.modal.active');
-        if (activeModal) {
-            activeModal.classList.remove('active');
-        }
-    }
-});
+// Добавляем стили для анимации тряски
+if (!document.querySelector('#shake-styles')) {
+    const style = document.createElement('style');
+    style.id = 'shake-styles';
+    style.textContent = shakeKeyframes;
+    document.head.appendChild(style);
+}
 
 // Создание анимированных частиц на фоне
 function initParticles() {
@@ -368,28 +483,28 @@ function initCounters() {
         counterObserver.observe(counter);
     });
 
-    // Специальная обработка для счетчика зарегистрированных пользователей
-    const userCounter = document.getElementById('registeredUsers');
-    if (userCounter) {
-        const userCounterObserver = new IntersectionObserver((entries) => {
+    // Специальная обработка для счетчика подписчиков
+    const subscriberCounter = document.getElementById('registeredUsers');
+    if (subscriberCounter) {
+        const subscriberCounterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateUserCounter();
-                    userCounterObserver.unobserve(entry.target);
+                    animateSubscriberCounter();
+                    subscriberCounterObserver.unobserve(entry.target);
                 }
             });
         });
-        userCounterObserver.observe(userCounter);
+        subscriberCounterObserver.observe(subscriberCounter);
     }
 }
 
-// Анимация счетчика пользователей
-function animateUserCounter() {
+// Анимация счетчика подписчиков
+function animateSubscriberCounter() {
     const counter = document.getElementById('registeredUsers');
     if (!counter) return;
     
     let current = 0;
-    const target = registeredUsers;
+    const target = subscribers;
     const increment = Math.ceil(target / 100);
     
     const timer = setInterval(() => {
@@ -676,6 +791,285 @@ function isElementInViewport(el) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
+}
+
+// Сохранение предпочтений при уходе со страницы
+window.addEventListener('beforeunload', saveUserPreferences);
+// Закрытие модальных окон по клику вне их
+window.addEventListener('click', function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            modal.classList.remove('active');
+            
+            // Очищаем таймер при закрытии модального окна
+            if (resendTimer) {
+                clearInterval(resendTimer);
+                resendTimer = null;
+            }
+        }
+    });
+});
+
+// Закрытие модальных окон по Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+            activeModal.classList.remove('active');
+            
+            // Очищаем таймер при закрытии модального окна
+            if (resendTimer) {
+                clearInterval(resendTimer);
+                resendTimer = null;
+            }
+        }
+    }
+});
+
+// Автоматическое форматирование кода подтверждения
+document.addEventListener('DOMContentLoaded', function() {
+    const codeInput = document.getElementById('verificationCode');
+    if (codeInput) {
+        codeInput.addEventListener('input', function(e) {
+            // Оставляем только цифры
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Ограничиваем до 6 символов
+            if (value.length > 6) {
+                value = value.slice(0, 6);
+            }
+            
+            e.target.value = value;
+            
+            // Автоматически переходим к подтверждению при вводе 6 цифр
+            if (value.length === 6) {
+                setTimeout(() => {
+                    const verifyBtn = document.querySelector('#step2 .btn-primary');
+                    if (verifyBtn && !verifyBtn.disabled) {
+                        verifyBtn.focus();
+                    }
+                }, 100);
+            }
+        });
+        
+        // Обработка вставки из буфера обмена
+        codeInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const paste = (e.clipboardData || window.clipboardData).getData('text');
+            const code = paste.replace(/\D/g, '').slice(0, 6);
+            e.target.value = code;
+            
+            if (code.length === 6) {
+                setTimeout(() => {
+                    const verifyBtn = document.querySelector('#step2 .btn-primary');
+                    if (verifyBtn && !verifyBtn.disabled) {
+                        verifyBtn.focus();
+                    }
+                }, 100);
+            }
+        });
+    }
+});
+
+// Улучшенная анимация частиц с интерактивностью
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Случайные позиции и размеры
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    const size = Math.random() * 4 + 1;
+    const duration = Math.random() * 4 + 4;
+    const opacity = Math.random() * 0.8 + 0.2;
+    
+    particle.style.left = x + 'px';
+    particle.style.top = y + 'px';
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.animationDuration = duration + 's';
+    particle.style.animationDelay = Math.random() * 2 + 's';
+    particle.style.opacity = opacity;
+    
+    // Случайный цвет из палитры
+    const colors = ['#8B5CF6', '#A855F7', '#7C3AED', '#6D28D9'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    
+    container.appendChild(particle);
+    
+    // Интерактивность при наведении мыши
+    particle.addEventListener('mouseenter', function() {
+        particle.style.transform = 'scale(2)';
+        particle.style.opacity = '1';
+    });
+    
+    particle.addEventListener('mouseleave', function() {
+        particle.style.transform = 'scale(1)';
+        particle.style.opacity = opacity;
+    });
+    
+    // Удаление и пересоздание частицы
+    setTimeout(() => {
+        if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+            createParticle(container);
+        }
+    }, (duration + 2) * 1000);
+}
+
+// Дополнительные эффекты при загрузке страницы
+window.addEventListener('load', () => {
+    // Добавление класса для запуска анимаций
+    document.body.classList.add('loaded');
+    
+    // Инициализация дополнительных эффектов
+    initFloatingElements();
+    initPulseEffects();
+    initParallaxEffect();
+});
+
+// Параллакс эффект для hero секции
+function initParallaxEffect() {
+    const hero = document.querySelector('.hero');
+    const heroVisual = document.querySelector('.hero-visual');
+    
+    if (hero && heroVisual) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            heroVisual.style.transform = `translateY(${rate}px)`;
+        });
+    }
+}
+
+// Улучшенные плавающие элементы
+function initFloatingElements() {
+    const floatingElements = document.querySelectorAll('.floating-element');
+    
+    floatingElements.forEach((element, index) => {
+        // Более сложное движение элементов
+        let angle = 0;
+        const radius = 10 + index * 5;
+        const speed = 0.02 + index * 0.01;
+        
+        setInterval(() => {
+            angle += speed;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            element.style.transform = `translate(${x}px, ${y}px)`;
+        }, 50);
+    });
+}
+
+// Улучшенные эффекты пульсации
+function initPulseEffects() {
+    const pulseButtons = document.querySelectorAll('.pulse');
+    
+    pulseButtons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            button.style.animationPlayState = 'paused';
+            button.style.transform = 'scale(1.05)';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.animationPlayState = 'running';
+            button.style.transform = 'scale(1)';
+        });
+        
+        // Добавляем ripple эффект при клике
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+}
+
+// CSS для ripple эффекта
+const rippleStyles = `
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+`;
+
+// Добавляем стили для ripple эффекта
+if (!document.querySelector('#ripple-styles')) {
+    const style = document.createElement('style');
+    style.id = 'ripple-styles';
+    style.textContent = rippleStyles;
+    document.head.appendChild(style);
+}
+
+// Утилиты для работы с localStorage (обновленные)
+const Storage = {
+    set: (key, value) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+            console.warn('LocalStorage недоступен:', e);
+        }
+    },
+    
+    get: (key, defaultValue = null) => {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : defaultValue;
+        } catch (e) {
+            console.warn('Ошибка чтения из LocalStorage:', e);
+            return defaultValue;
+        }
+    },
+    
+    remove: (key) => {
+        try {
+            localStorage.removeItem(key);
+        } catch (e) {
+            console.warn('Ошибка удаления из LocalStorage:', e);
+        }
+    }
+};
+
+// Сохранение предпочтений пользователя (обновленное)
+function saveUserPreferences() {
+    const preferences = {
+        lastVisit: new Date().toISOString(),
+        viewedSections: getViewedSections(),
+        subscriberCount: subscribers
+    };
+    
+    Storage.set('userPreferences', preferences);
 }
 
 // Сохранение предпочтений при уходе со страницы
